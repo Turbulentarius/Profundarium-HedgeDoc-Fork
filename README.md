@@ -39,6 +39,8 @@ regular [community calls][hedgedoc-community-calls] ([RSS](https://community.hed
 
 ## Installation / Upgrading
 
+For this fork, see [Building a container image](FORK_NOTES.md#building-a-container-image) for instructions using upstream's container build repository. The installation options below describe upstream HedgeDoc; its published images do not contain this fork's changes.
+
 You can run HedgeDoc in a number of ways, and we created setup instructions for
 all of these:
 
