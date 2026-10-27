@@ -26,6 +26,7 @@ public/views/build
 
 public/uploads/*
 !public/uploads/.gitkeep
+public/static/
 
 site/
 
