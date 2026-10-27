@@ -91,6 +91,24 @@ div.toc li ul li::before {
 }
 
 
+.night div.toc {
+    background: #222;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ededed;
+}
+
+.night div.toc li::before,
+.night div.toc li ul li::before {
+    color: #aaa;
+}
+
+.night .ui-toc-label,
+.night .ui-toc-label:hover,
+.night .ui-toc-label:focus {
+    background-color: #444;
+    color: #ededed;
+}
+
 #ui-toc-affix li a {
   padding-left: 0.4rem;
 }

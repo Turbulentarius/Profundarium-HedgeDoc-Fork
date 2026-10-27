@@ -34,6 +34,8 @@ remain available as well.
 
 The fork customizes TOC styling and spacing for desktop and mobile in
 `public/css/extra.css` and `public/css/site.css`. Preserve these adjustments.
+The custom TOC cards, section numbers, and floating TOC button follow the
+editor's night theme, including inline, sidebar, and mobile dropdown TOCs.
 
 ## Profundarium header link
 
