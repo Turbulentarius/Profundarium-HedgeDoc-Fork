@@ -8,16 +8,16 @@ This document describes the fork's customizations and the reasoning behind them.
 
 ## Updating this fork
 
-After pulling updates, install the locked dependencies before building:
+After pulling updates, install the dependencies and build the application:
 
 ```sh
 node .yarn/releases/yarn-4.13.0.cjs install --immutable
 node .yarn/releases/yarn-4.13.0.cjs build
 ```
 
-Check the build output for errors before restarting the application. The build contains separate editor and HTML-export compilations; an exported HTML asset alone does not prove that the editor build succeeded.
+Restart HedgeDoc only after the build finishes without errors.
 
-The upstream email uniqueness migration adds a unique index to `Users.email`. Before deploying this update, back up the database and check for duplicate email addresses. Existing duplicates must be resolved before that migration can run.
+When upgrading an existing installation, back up the database first. This version requires each account to have a different email address. If multiple accounts share an email address, the database update will fail. Check for duplicates before upgrading and resolve them without deleting accounts or their notes.
 
 ## Building a container image
 
@@ -46,7 +46,7 @@ Upstream also provides `debian/Dockerfile` if you prefer Debian. `VERSION` selec
 
 Remove source mounts that replace application files, such as `public/build` or `public/views`: the image builds the backend, frontend, and templates together. Keep configuration and upload mounts, database storage, and the existing `CMD_SESSION_SECRET`. Replacing only frontend files on an older upstream image can introduce links or features that its backend does not support.
 
-Before upgrading, back up the database, configuration, and uploads, and review the migration requirements under [Updating this fork](#updating-this-fork). From the directory containing your Compose file, run:
+Before upgrading, back up the database, configuration, and uploads, and read [Updating this fork](#updating-this-fork). From the directory containing your Compose file, run:
 
 ```sh
 docker compose config --quiet
