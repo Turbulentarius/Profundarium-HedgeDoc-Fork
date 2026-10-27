@@ -432,6 +432,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hedgedoc/codemirror-5@patch:@hedgedoc/codemirror-5@npm%3A5.65.12#~/.yarn/patches/codemirror-display-math.patch":
+  version: 5.65.12
+  resolution: "@hedgedoc/codemirror-5@patch:@hedgedoc/codemirror-5@npm%3A5.65.12#~/.yarn/patches/codemirror-display-math.patch::version=5.65.12&hash=f9ec50"
+  checksum: 10/ca4528ccaaba1c27c9dc86658f42a6a69498283470fcbc0d043d27c95180a295047aa63e4da3f1a155597848ee37aa89aa0946f7e871e9410e19400d4470a9e6
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.2":
   version: 0.19.2
   resolution: "@humanfs/core@npm:0.19.2"
@@ -583,17 +590,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@node-saml/passport-saml@npm:5.1.0":
-  version: 5.1.0
-  resolution: "@node-saml/passport-saml@npm:5.1.0"
+"@node-saml/passport-saml@npm:5.1.1":
+  version: 5.1.1
+  resolution: "@node-saml/passport-saml@npm:5.1.1"
   dependencies:
     "@node-saml/node-saml": "npm:^5.1.0"
-    "@types/express": "npm:^4.17.23"
+    "@types/express": "npm:^4.17.25"
     "@types/passport": "npm:^1.0.17"
     "@types/passport-strategy": "npm:^0.2.38"
     passport: "npm:^0.7.0"
     passport-strategy: "npm:^1.0.0"
-  checksum: 10/11b6ffd988e7f6a4c8119963eed280280799a5396c5499920518e5a3980e3222f54402244caa3e3f72ab3a759c11b8d2d3d5f1b6d2282b7090f6b05337382d11
+  checksum: 10/3c4656ab615e1edffb843ef70fa5e91024013a61a9d8ac4248bdf490ebeacd8e4752d7b4ff6a3719176b4e4f0260b8494fb18d1ae2b658eb582d7d6e19f7bb13
   languageName: node
   linkType: hard
 
@@ -951,7 +958,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.23":
+"@types/express@npm:^4.17.25":
   version: 4.17.25
   resolution: "@types/express@npm:4.17.25"
   dependencies:
@@ -1519,11 +1526,11 @@ __metadata:
   dependencies:
     "@eslint/eslintrc": "npm:3.3.7"
     "@eslint/js": "npm:9.39.5"
-    "@hedgedoc/codemirror-5": "npm:5.65.12"
-    "@node-saml/passport-saml": "npm:5.1.0"
+    "@hedgedoc/codemirror-5": "patch:@hedgedoc/codemirror-5@npm%3A5.65.12#~/.yarn/patches/codemirror-display-math.patch"
+    "@node-saml/passport-saml": "npm:5.1.1"
     "@passport-next/passport-openid": "npm:1.0.0"
     Idle.Js: "git+https://github.com/shawnmclean/Idle.js#commit=2b57cc6e49d177b7ddce0cca00ef5cbe07453541"
-    abcjs: "npm:6.7.0"
+    abcjs: "npm:6.7.1"
     archiver: "npm:8.0.0"
     async: "npm:3.2.6"
     aws-sdk: "npm:2.1693.0"
@@ -1566,7 +1573,7 @@ __metadata:
     exports-loader: "npm:1.1.1"
     expose-loader: "npm:1.0.3"
     express: "npm:4.22.3"
-    express-rate-limit: "npm:8.7.0"
+    express-rate-limit: "npm:8.7.1"
     express-session: "npm:1.19.0"
     file-loader: "npm:6.2.0"
     file-saver: "npm:2.0.5"
@@ -1574,7 +1581,7 @@ __metadata:
     flowchart.js: "npm:1.18.0"
     fork-awesome: "npm:1.2.0"
     formidable: "npm:3.5.4"
-    globals: "npm:17.12.0"
+    globals: "npm:17.13.0"
     graceful-fs: "npm:4.2.11"
     helmet: "npm:8.3.0"
     highlight.js: "npm:11.12.0"
@@ -1623,8 +1630,8 @@ __metadata:
     mock-require: "npm:3.0.3"
     moment: "npm:2.31.0"
     morgan: "npm:1.12.1"
-    mysql2: "npm:3.24.4"
-    nanoid: "npm:3.3.19"
+    mysql2: "npm:3.24.5"
+    nanoid: "npm:3.3.20"
     optimize-css-assets-webpack-plugin: "npm:6.0.1"
     passport: "patch:passport@npm%3A0.7.0#~/.yarn/patches/passport-npm-0.7.0-df02531736.patch"
     passport-dropbox-oauth2: "npm:1.1.0"
@@ -1638,7 +1645,7 @@ __metadata:
     passport-twitter: "npm:1.0.4"
     passport.socketio: "npm:3.7.0"
     pdfobject: "npm:2.3.1"
-    pg: "npm:8.23.0"
+    pg: "npm:8.23.1"
     pg-hstore: "npm:2.3.4"
     prismjs: "npm:1.30.0"
     prom-client: "npm:15.1.3"
@@ -1653,8 +1660,8 @@ __metadata:
     scrypt-kdf: "npm:3.0.0"
     select2: "npm:3.5.2-browserify"
     sequelize: "npm:5.22.5"
-    socket.io: "npm:4.8.3"
-    socket.io-client: "npm:4.8.3"
+    socket.io: "npm:4.8.4"
+    socket.io-client: "npm:4.8.4"
     spin.js: "npm:4.1.2"
     sqlite3: "npm:6.0.1"
     store: "npm:2.0.12"
@@ -1718,10 +1725,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"abcjs@npm:6.7.0":
-  version: 6.7.0
-  resolution: "abcjs@npm:6.7.0"
-  checksum: 10/9d871c4f77d200b3620ce5d243a30830116595382e92dbffbe17dd147994de4804b5c5f1cf2a951af1e407f1d960e0e78577e7a51eae84fefbab77f6105923f3
+"abcjs@npm:6.7.1":
+  version: 6.7.1
+  resolution: "abcjs@npm:6.7.1"
+  checksum: 10/fad390de88d23cc0d551ac6e5007b9cbcc0cbf00f13f8e192b8cb8850b510281119f7694d5773e7fc6f541df1f0675c46b4cef0ec2c6a2b98f71c53939399a09
   languageName: node
   linkType: hard
 
@@ -3122,7 +3129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64id@npm:2.0.0, base64id@npm:~2.0.0":
+"base64id@npm:2.0.0":
   version: 2.0.0
   resolution: "base64id@npm:2.0.0"
   checksum: 10/e3312328429e512b0713469c5312f80b447e71592cae0a5bddf3f1adc9c89d1b2ed94156ad7bb9f529398f310df7ff6f3dbe9550735c6a759f247c088ea67364
@@ -6805,15 +6812,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-rate-limit@npm:8.7.0":
-  version: 8.7.0
-  resolution: "express-rate-limit@npm:8.7.0"
+"express-rate-limit@npm:8.7.1":
+  version: 8.7.1
+  resolution: "express-rate-limit@npm:8.7.1"
   dependencies:
     debug: "npm:^4.4.3"
     ip-address: "npm:^10.2.0"
   peerDependencies:
     express: ">= 4.11"
-  checksum: 10/aff2995369d8a14380a46eefa9f7f720ef6c5d6c4478d09b20544f1e91d8fa21dfe442bf8ef5e652b226ee2dea110d3f8e57dc5cf44331d51106ecdef3d85470
+  checksum: 10/64c27b98d5ed0f3dcf6625c319c9118415d6cfd51638d7b847f6166c5ca738379fcc880bc620332624a78b31e90918304cc4f74b050fd06745c06e1a4e9bbcad
   languageName: node
   linkType: hard
 
@@ -7763,10 +7770,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.12.0":
-  version: 17.12.0
-  resolution: "globals@npm:17.12.0"
-  checksum: 10/833291560517dbb510c6d12359ba87eb8b8f282e9775b0474c6e19e0bea043b61f6b52732d4b1bb275888d1813564e40653e0d5faccef3083dc603cfbf0a3271
+"globals@npm:17.13.0":
+  version: 17.13.0
+  resolution: "globals@npm:17.13.0"
+  checksum: 10/f723714cfb07bcf3163d44661d63b2a6076d93fd2f3724622b22084c62bcbbdb3ea3c601ec39635f1430d5cdf60bbf6fd7e458f12b5381ed422ed355c699537b
   languageName: node
   linkType: hard
 
@@ -11093,9 +11100,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mysql2@npm:3.24.4":
-  version: 3.24.4
-  resolution: "mysql2@npm:3.24.4"
+"mysql2@npm:3.24.5":
+  version: 3.24.5
+  resolution: "mysql2@npm:3.24.5"
   dependencies:
     aws-ssl-profiles: "npm:^1.1.2"
     generate-function: "npm:^2.3.1"
@@ -11106,7 +11113,7 @@ __metadata:
     sql-escaper: "npm:^1.5.1"
   peerDependencies:
     "@types/node": ">= 8"
-  checksum: 10/797245d1737e1f8ab41e841b957ed87290228dd018f45ec7b073774a4202693919fcc4ac2861719cae3f39fb82252cd6115391d055489d0f46f203f779f335b8
+  checksum: 10/712a581ae476fc59b5f4a6063be440a9e97d57a0d8a8bd93da6210a036cd9e20ce88083ad0568bf1b430ef9ea180dfffb20d7f4430511c3046e6391475a86430
   languageName: node
   linkType: hard
 
@@ -11128,12 +11135,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:3.3.19":
-  version: 3.3.19
-  resolution: "nanoid@npm:3.3.19"
+"nanoid@npm:3.3.20":
+  version: 3.3.20
+  resolution: "nanoid@npm:3.3.20"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 10/a330adb28dad63eccb0a0c95a2a61353e84b7e067061fff94167803d94be8eef0f7b75cf2da1bece06e8b7afb892abbe52cf0ec33298c817a083eedccd7656e4
+  checksum: 10/b19641487fc25325189175226a4b9fcc8da39989c6a39fd35921802158d6b1725d59d8454a4e30643d2bb4837382cac11ee129417282678a67f8394b31c228d9
   languageName: node
   linkType: hard
 
@@ -12287,17 +12294,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-cloudflare@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "pg-cloudflare@npm:1.4.0"
-  checksum: 10/7b4ad661a5f73e5ed86ae84b18a82434d38acec00ab47e79896ade7321e9d59aeecf4f88c33323cfa0504fda52c39ccfc7add508c1165a866264fd54ac30191e
+"pg-cloudflare@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "pg-cloudflare@npm:1.4.1"
+  checksum: 10/f6fadda3fe9488867568c9d6e5639f092d480defb55981ef1cc3b1b4d1677f5e6c755e1ac5df9a958e3d3a349882ae5b56ec7cc569dfbf9ae2b0d66879a7e5d1
   languageName: node
   linkType: hard
 
-"pg-connection-string@npm:^2.14.0":
-  version: 2.14.0
-  resolution: "pg-connection-string@npm:2.14.0"
-  checksum: 10/9434e5fbb918b9224a18ad8b739c3da83940ec95c113a0e38371dbd3e8f84c6e3cbaf4dbfaf36d02a1281b0e844af290a1bc240b8d865a98cae6864d89ee11a0
+"pg-connection-string@npm:^2.14.1":
+  version: 2.14.1
+  resolution: "pg-connection-string@npm:2.14.1"
+  checksum: 10/65708bd753b6fa413f57d2966f0fe42bbeac8c21d7f40721ba084c22bf5d67a85ae53c365e7ab8a158fb8a6ac145e79abefe3afb913a9a5f32dbdad3274d452e
   languageName: node
   linkType: hard
 
@@ -12326,10 +12333,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg-protocol@npm:^1.16.0":
-  version: 1.16.0
-  resolution: "pg-protocol@npm:1.16.0"
-  checksum: 10/fe826fccf317460d5f23b289e2d44a00c5fd46765e52c9eb14e3bda6ab44aef8a8906f7e2f07a2a3a9cc6087ebf9fbf2f430ee6bfdd1d24f870a17aa722e53eb
+"pg-protocol@npm:^1.16.1":
+  version: 1.16.1
+  resolution: "pg-protocol@npm:1.16.1"
+  checksum: 10/4fbc86b76c4b1c30d004503ca3f30defb202e37cb3cd71b1c41224681b0d6cf2c3d99bad937eb63b7d7dc4015e29b26ab095de1678770967cd715b10b6fc7569
   languageName: node
   linkType: hard
 
@@ -12346,14 +12353,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg@npm:8.23.0":
-  version: 8.23.0
-  resolution: "pg@npm:8.23.0"
+"pg@npm:8.23.1":
+  version: 8.23.1
+  resolution: "pg@npm:8.23.1"
   dependencies:
-    pg-cloudflare: "npm:^1.4.0"
-    pg-connection-string: "npm:^2.14.0"
+    pg-cloudflare: "npm:^1.4.1"
+    pg-connection-string: "npm:^2.14.1"
     pg-pool: "npm:^3.14.0"
-    pg-protocol: "npm:^1.16.0"
+    pg-protocol: "npm:^1.16.1"
     pg-types: "npm:2.2.0"
     pgpass: "npm:1.0.5"
   peerDependencies:
@@ -12364,7 +12371,7 @@ __metadata:
   peerDependenciesMeta:
     pg-native:
       optional: true
-  checksum: 10/eb9be4e664638331cc12bdf5f4d78d94f0ec052a13a609f3c48007905ac9da5c1987affa745225f37f34759c982860b25fcc1477c04d07a099d06b345d455f72
+  checksum: 10/97f78bb97bdb06d4f0d8cd0ca17fda402d0c30e7ddc92ea34e00d63ba4cd8bea999cbe216eeb197bab56fd07ec9defb00742009a50e2a63174a54409a2c89245
   languageName: node
   linkType: hard
 
@@ -15129,15 +15136,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io-client@npm:4.8.3":
-  version: 4.8.3
-  resolution: "socket.io-client@npm:4.8.3"
+"socket.io-client@npm:4.8.4":
+  version: 4.8.4
+  resolution: "socket.io-client@npm:4.8.4"
   dependencies:
     "@socket.io/component-emitter": "npm:~3.1.0"
     debug: "npm:~4.4.1"
     engine.io-client: "npm:~6.6.1"
     socket.io-parser: "npm:~4.2.4"
-  checksum: 10/ee83c08cb3a6f6c450e484b03036a0d853ceb62825f8f1093146298b63eccf86c7fdd1958d68940f8b7a8766b80bb4b30c7815b2811733edda74b21ff002e1d4
+  checksum: 10/9b39697b00db989b23caf2f1c0cd15d71c734a50281febd3de0eaf448b89a16758d2ba89b57be05ba6fc435f4127e64908cd59d3e878cb36a97954aa376d7042
   languageName: node
   linkType: hard
 
@@ -15151,18 +15158,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io@npm:4.8.3":
-  version: 4.8.3
-  resolution: "socket.io@npm:4.8.3"
+"socket.io@npm:4.8.4":
+  version: 4.8.4
+  resolution: "socket.io@npm:4.8.4"
   dependencies:
     accepts: "npm:~1.3.4"
-    base64id: "npm:~2.0.0"
     cors: "npm:~2.8.5"
     debug: "npm:~4.4.1"
     engine.io: "npm:~6.6.0"
     socket.io-adapter: "npm:~2.5.2"
     socket.io-parser: "npm:~4.2.4"
-  checksum: 10/ccd3eb0d191b3338056b678e676407a0dc565ab2a49a1aefd4b0771bd1d95d71cb564d3766040346669144c8a3b425bede54e0aad8102aa6c7d91dacb7c6992f
+  checksum: 10/8885b140a2c53fed2cef4ef5d72bb8fa16f995c9f589cc2eb12dc5c2319e69c3dcbde841ded339a87394efce6c3e2fbd34f0c57b12bdba9570c419825e1ce824
   languageName: node
   linkType: hard
 

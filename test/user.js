@@ -24,6 +24,16 @@ describe('User Sequelize model', function () {
     })
   })
 
+  it('enforces unique email addresses', function () {
+    const email = 'duplicate@example.com'
+    return User.create({ email, password: 'test123' }).then(() => {
+      return User.create({ email, password: 'test123' }).then(
+        () => assert.fail('A second user with the same email should not be created'),
+        error => assert.strictEqual(error.name, 'SequelizeUniqueConstraintError')
+      )
+    })
+  })
+
   it('can cope with password stored in standard scrypt header format', function () {
     const testKey = '736372797074000e00000008000000018c7b8c1ac273fd339badde759b3efc418bc61b776debd02dfe95989383cf9980ad21d2403dce33f4b551f5e98ce84edb792aee62600b1303ab8d4e6f0a53b0746e73193dbf557b888efc83a2d6a055a9'
     const validPassword = 'test'
@@ -58,5 +68,41 @@ describe('User Sequelize model', function () {
           .then(result => assert.strictEqual(result, false, `password #${index} "${combination[0]}" should NOT have been verified`))
       ])
     })).catch(e => assert.fail(e))
+  })
+})
+
+describe('User.parsePhotoByProfile() oauth2 provider', function () {
+  it('uses the photo URL from the profile when present', function () {
+    const profile = {
+      provider: 'oauth2',
+      username: 'alice',
+      emails: ['alice@example.com'],
+      photo: 'https://example.com/avatar.png'
+    }
+    assert.strictEqual(User.parsePhotoByProfile(profile), 'https://example.com/avatar.png')
+    assert.strictEqual(User.parsePhotoByProfile(profile, true), 'https://example.com/avatar.png')
+  })
+
+  it('falls back to a generated avatar matching other providers when no photo is present', function () {
+    const profileWithoutPhoto = {
+      provider: 'oauth2',
+      username: 'alice',
+      emails: ['alice@example.com']
+    }
+    const equivalentLdapProfile = {
+      provider: 'ldap',
+      username: 'alice',
+      emails: ['alice@example.com']
+    }
+    assert.strictEqual(User.parsePhotoByProfile(profileWithoutPhoto), User.parsePhotoByProfile(equivalentLdapProfile))
+    assert.strictEqual(User.parsePhotoByProfile(profileWithoutPhoto, true), User.parsePhotoByProfile(equivalentLdapProfile, true))
+  })
+
+  it('falls back to a generated avatar when the profile has no emails', function () {
+    const profile = {
+      provider: 'oauth2',
+      username: 'alice'
+    }
+    assert.ok(User.parsePhotoByProfile(profile))
   })
 })

@@ -2,12 +2,27 @@
 
 ## <i class="fa fa-tag"></i> UNRELEASED
 
+### Enhancements
+
+- Added `CMD_OAUTH2_USER_PROFILE_PHOTO_ATTR` to let OAuth2/OIDC providers supply a profile photo URL, instead of always falling back to a generated avatar
+
 ### Bugfixes
 
 - Fixed opening links in new tabs did not work for published and slideshow views. This was forgotten with the last fix in 1.12.0.
 - Tell the user about an impending data loss immediately after the reconnect.
 - Fixed hashtag links opening in new tabs when external link warning is disabled
 - Fixed links with the same origin not opening in new tabs when external link warning is enabled
+- Fixed crash when importing history entries that already exist
+- Fixed text not rendering when placed following a `<br>` HTML tag
+- In "free URL" mode, there is no "409 conflict" anymore when trying to create a note with an alias that parses also as a valid note ID 
+- Fixed a missing uniqueness constraint in the database for email addresses of local accounts
+- Fixed invalid HTML for task lists with checkboxes, clicking the label should now trigger the checkbox as well
+- Fixed line numbers in wrapped code blocks being attached to the wrong lines
+- Fixed an issue with syntax highlighting in the editor when using `$$` math blocks
+
+### Node compatability
+
+- Node 26 support was tested and is now supported officially.
 
 ## <i class="fa fa-tag"></i> 1.12.0 <i class="fa fa-calendar-o"></i> 2026-08-21
 

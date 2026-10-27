@@ -7,6 +7,23 @@ Author: **Turbulentarius**.
 
 This document describes the fork's customizations and the reasoning behind them.
 
+## Updating this fork
+
+After pulling updates, install the locked dependencies before building:
+
+```sh
+node .yarn/releases/yarn-4.13.0.cjs install --immutable
+node .yarn/releases/yarn-4.13.0.cjs build
+```
+
+Check the build output for errors before restarting the application. The build
+contains separate editor and HTML-export compilations; an exported HTML asset
+alone does not prove that the editor build succeeded.
+
+The upstream email uniqueness migration adds a unique index to `Users.email`.
+Before deploying this update, back up the database and check for duplicate email
+addresses. Existing duplicates must be resolved before that migration can run.
+
 ## Normal link navigation
 
 The link policy follows Turbulentarius's preference for consistency with normal
@@ -64,4 +81,5 @@ attributes, which differ from the preferred same-tab policy above.
 
 `test/fork-customizations.js` checks native link navigation with external-link
 warnings enabled and disabled, and media sanitization that retains video sources
-and captions while stripping unsafe attributes and URLs.
+and captions while stripping unsafe attributes and URLs. It also checks both
+Profundarium menu entries across public and restricted permission changes.
