@@ -7,6 +7,9 @@ A customized fork of HedgeDoc 1.x, maintained by Turbulentarius for use with
 [FORK_NOTES.md](FORK_NOTES.md) for the fork's changes. The documentation and
 community links below refer to upstream HedgeDoc unless otherwise stated.
 
+Fork [source code](https://github.com/Turbulentarius/Profundarium-HedgeDoc-Fork)
+and [issue tracker](https://github.com/Turbulentarius/Profundarium-HedgeDoc-Fork/issues).
+
 [![#HedgeDoc on matrix.org][matrix.org-image]][matrix.org-url]
 [![version][github-version-badge]][github-release-page]
 [![POEditor][poeditor-image]][poeditor-url]
