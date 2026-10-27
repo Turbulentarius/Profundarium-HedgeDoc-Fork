@@ -1,6 +1,11 @@
 ![HedgeDoc Logo](docs/content/images/hedgedoc_logo_black.svg)
 
-# HedgeDoc
+# Profundarium HedgeDoc Fork
+
+A customized fork of HedgeDoc 1.x, maintained by Turbulentarius for use with
+[Profundarium](https://github.com/beamtic/Profundarium). See
+[FORK_NOTES.md](FORK_NOTES.md) for the fork's changes. The documentation and
+community links below refer to upstream HedgeDoc unless otherwise stated.
 
 [![#HedgeDoc on matrix.org][matrix.org-image]][matrix.org-url]
 [![version][github-version-badge]][github-release-page]

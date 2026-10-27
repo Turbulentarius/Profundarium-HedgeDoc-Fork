@@ -1,4 +1,7 @@
-# HedgeDoc fork notes
+# Profundarium HedgeDoc Fork notes
+
+Profundarium HedgeDoc Fork is a customized fork of HedgeDoc 1.x. The display
+name distinguishes this fork while retaining attribution to upstream HedgeDoc.
 
 Author: **Turbulentarius**.
 
