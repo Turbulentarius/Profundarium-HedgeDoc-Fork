@@ -45,6 +45,10 @@ depends on that installation.
 
 The note header and mobile menu include a **Profundarium** link with a globe icon.
 It points to `/profundarium/` followed by the URL-encoded current note ID.
+Both links stay hidden until the note permissions are received. They appear
+only for publicly readable notes (`freely`, `editable`, and `locked`) and update
+immediately when permissions change. Notes requiring sign-in or owner access
+(`limited`, `protected`, and `private`) do not show the links.
 
 The markup lives in `public/views/hedgedoc/header.ejs`; the URL is assigned in
 `public/js/index.js` using `.ui-public-view`. Icons are decorative and use

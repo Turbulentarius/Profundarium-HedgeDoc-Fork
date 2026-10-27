@@ -2137,6 +2137,7 @@ function emitPermission (_permission) {
 }
 
 function updatePermission (newPermission) {
+  $('.ui-public-view').closest('li').toggleClass('hidden', !['freely', 'editable', 'locked'].includes(newPermission))
   if (permission !== newPermission) {
     permission = newPermission
     if (window.loaded) refreshView()

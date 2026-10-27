@@ -13,6 +13,37 @@ const end = source.indexOf('window.rewriteExternalLinks = rewriteExternalLinks',
 assert(start >= 0 && end > start)
 const helper = source.slice(start, end).replace('export function', 'function')
 
+describe('Profundarium link visibility', function () {
+  it('shows both menu entries only for publicly readable permissions, including live changes', function () {
+    const header = fs.readFileSync(path.join(__dirname, '../public/views/hedgedoc/header.ejs'), 'utf8')
+    const dom = new JSDOM(header)
+    const window = dom.window
+    const $ = require('jquery')(window)
+    const entries = $('.ui-public-view').closest('li')
+    assert.strictEqual(entries.length, 2)
+    entries.each((index, entry) => assert($(entry).hasClass('hidden')))
+
+    const editor = fs.readFileSync(path.join(__dirname, '../public/js/index.js'), 'utf8')
+    const start = editor.indexOf('function updatePermission (newPermission) {')
+    const end = editor.indexOf('\nfunction havePermission () {', start)
+    assert(start >= 0 && end > start)
+    const context = vm.createContext({
+      window,
+      $,
+      permission: null,
+      personalInfo: {},
+      ui: { infobar: { permission: { label: $('<span>') } } }
+    })
+    vm.runInContext(editor.slice(start, end), context)
+    for (const permission of ['private', 'freely', 'limited', 'editable', 'protected', 'locked', null, 'unknown']) {
+      context.updatePermission(permission)
+      const hidden = !['freely', 'editable', 'locked'].includes(permission)
+      entries.each((index, entry) => assert.strictEqual($(entry).hasClass('hidden'), hidden, String(permission)))
+    }
+    window.close()
+  })
+})
+
 describe('Fork navigation', function () {
   for (const warning of [true, false]) {
     it(`preserves native link navigation with external warnings ${warning}`, function () {

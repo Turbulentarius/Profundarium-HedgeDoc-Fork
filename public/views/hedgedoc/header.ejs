@@ -28,7 +28,7 @@
                 <% } %>
                 <li role="presentation"><a role="menuitem" class="ui-publish" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-share-square-o fa-fw"></i> <%= __('Publish') %></a>
                 </li>
-                <li role="presentation"><a role="menuitem" class="ui-public-view" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> Profundarium</a>
+                <li role="presentation" class="hidden"><a role="menuitem" class="ui-public-view" tabindex="-1" href="#" target="_blank" rel="noopener"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> Profundarium</a>
                 </li>
                 <li class="divider"></li>
                 <li class="dropdown-header"><%= __('Extra') %></li>
@@ -128,7 +128,7 @@
                     <i class="fa fa-share-square-o"></i> <%= __('Publish') %>
                 </a>
             </li>
-            <li>
+            <li class="hidden">
                 <a href="#" target="_blank" rel="noopener" class="ui-public-view"><i class="fa fa-globe" aria-hidden="true"></i> Profundarium</a>
             </li>
             <li>
