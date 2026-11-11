@@ -195,6 +195,56 @@ export function isValidURL (str) {
   }
 }
 
+// Keep background media outside the rendered Markdown and never interpolate HTML.
+export function applyNoteBackground (view, meta = {}) {
+  const host = view.closest('.ui-view-area')[0] || view.parent()[0]
+  if (!host) return
+  host.classList.add('note-surface')
+  view.addClass('note-card')
+  let source = Object.prototype.hasOwnProperty.call(meta, 'background') ? meta.background : window.defaultBackground
+  let type
+  if (source && typeof source === 'object' && !Array.isArray(source)) {
+    type = source.type
+    source = source.src
+  }
+  let url
+  if (typeof source === 'string' && source.trim()) {
+    try {
+      const parsed = new URL(source.trim(), document.baseURI)
+      if (['http:', 'https:'].includes(parsed.protocol)) url = parsed
+    } catch (e) { /* Invalid sources leave the plain background in place. */ }
+  }
+  const previous = host.querySelector(':scope > .note-background')
+  const video = url && (type === 'video' || (!type && /\.(mp4|webm|ogv|mov)$/i.test(url.pathname)))
+  const key = url ? `${video ? 'video' : 'image'}:${url.href}` : ''
+  if (previous && previous.dataset.source === key) return
+  if (previous) {
+    if (previous.tagName === 'VIDEO') {
+      previous.pause()
+      previous.removeAttribute('src')
+      previous.load()
+    }
+    previous.remove()
+  }
+  if (!url) return
+  const media = document.createElement(video ? 'video' : 'img')
+  media.className = 'note-background'
+  media.dataset.source = key
+  media.setAttribute('aria-hidden', 'true')
+  if (video) {
+    media.muted = true
+    media.loop = true
+    media.playsInline = true
+    media.autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    media.preload = 'metadata'
+    media.tabIndex = -1
+  } else {
+    media.alt = ''
+  }
+  media.src = url.href
+  host.prepend(media)
+}
+
 // parse meta
 export function parseMeta (md, edit, view, toc, tocAffix) {
   let lang = null
@@ -259,6 +309,7 @@ function replaceExtraTags (html) {
 
 // dynamic event or object binding here
 export function finishView (view) {
+  if (!view.hasClass('slides')) applyNoteBackground(view, md.meta || {})
   // todo list
   const lis = view.find('li.raw').removeClass('raw').sortByDepth().toArray()
 

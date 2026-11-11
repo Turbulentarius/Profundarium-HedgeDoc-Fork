@@ -52,6 +52,8 @@ all of these:
 
 ## Configuration
 
+This fork supports [default and per-note image/video backgrounds](FORK_NOTES.md#note-backgrounds-and-spacing), rounded note cards, and extra scrolling space.
+
 Theres two main ways to [configure][configuration] your HedgeDoc instance:
 config file or environment variables. You can choose what works best for you.
 

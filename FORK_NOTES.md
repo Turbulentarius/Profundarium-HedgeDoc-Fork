@@ -95,3 +95,37 @@ Known inconsistency: these header links currently have explicit `target="_blank"
 ## Regression coverage
 
 `test/fork-customizations.js` checks native link navigation with external-link warnings enabled and disabled, and media sanitization that retains video sources and captions while stripping unsafe attributes and URLs. It also checks both Profundarium menu entries across public and restricted permission changes.
+
+## Note backgrounds and spacing
+
+Set `defaultBackground` in the instance configuration or `CMD_DEFAULT_BACKGROUND`
+to an image or video URL. The default is empty. Restart after configuration changes.
+Notes can override it in their YAML front matter, alongside `robots` and `opengraph`:
+
+```yaml
+---
+background: /uploads/landscape.webp
+---
+```
+
+Video URLs ending in `.mp4`, `.webm`, `.ogv`, or `.mov` (including URLs with query
+strings) are detected automatically. For a media URL without an extension, use:
+
+```yaml
+---
+background:
+  src: https://example.org/background
+  type: video
+---
+```
+
+Use `type: image` to force an image, or `background: false` to disable the default
+for one note. Removing the field restores the default. Only HTTP(S) and relative
+URLs are accepted. External media must also be allowed by the instance CSP.
+Videos are decorative, muted, looping, and inline; autoplay is disabled when the
+page loads with reduced motion enabled. Browser autoplay restrictions still apply.
+
+Editor previews and published notes have an opaque card with `2rem` corners,
+`1.5rem` padding, and `30vh` of bottom margin for scrolling beyond the content.
+Slides retain their existing presentation layout. Backgrounds and extra spacing
+are omitted when printing.
