@@ -23,7 +23,8 @@ body.modal-open {
 }
 
 /* TOC styling */
-div.toc {
+div.toc,
+div.toc-menu {
     background: #fff;
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 8px;
@@ -31,6 +32,10 @@ div.toc {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     font-size: 1.4rem;
     line-height: 1.35;
+}
+
+div.toc-menu {
+    margin-top: 10px;
 }
 
 div.toc ul {
@@ -91,7 +96,8 @@ div.toc li ul li::before {
 }
 
 
-.night div.toc {
+.night div.toc,
+.night div.toc-menu {
     background: #222;
     border-color: rgba(255, 255, 255, 0.15);
     color: #ededed;

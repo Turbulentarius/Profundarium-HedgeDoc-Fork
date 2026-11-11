@@ -80,7 +80,7 @@ Preserve this support while continuing to filter unsafe URLs and event-handler a
 
 ## Table of contents
 
-The fork customizes TOC styling and spacing for desktop and mobile in `public/css/extra.css` and `public/css/site.css`. Preserve these adjustments. The custom TOC cards, section numbers, and floating TOC button follow the editor's night theme, including inline, sidebar, and mobile dropdown TOCs.
+The fork customizes TOC styling and spacing for desktop and mobile in `public/css/extra.css` and `public/css/site.css`. Preserve these adjustments. The custom TOC cards, section numbers, and floating TOC button follow the editor's night theme, including inline, sidebar, and mobile dropdown TOCs. The `.toc-menu` controls share the TOC card background, border, rounded corners, and padding so they remain readable over note backgrounds.
 
 ## Profundarium header link
 
