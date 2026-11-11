@@ -108,11 +108,12 @@ function windowResize () {
   let newbool
   const rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2
   // for ipad or wider device
-  if (rightMargin >= 133) {
+  if (rightMargin >= 148) {
     newbool = true
     const affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2
     const left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin
     tocAffix.css('left', `${left}px`)
+    tocAffix.css('width', `${rightMargin - 15}px`)
   } else {
     newbool = false
   }

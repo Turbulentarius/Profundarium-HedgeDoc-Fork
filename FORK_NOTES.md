@@ -126,6 +126,13 @@ Videos are decorative, muted, looping, and inline; autoplay is disabled when the
 page loads with reduced motion enabled. Browser autoplay restrictions still apply.
 
 Editor previews and published notes have an opaque card with `2rem` corners,
-`1.5rem` padding, and `30vh` of bottom margin for scrolling beyond the content.
+`2.2rem` side padding to leave room for heading link icons and `50px` top
+padding to accommodate the infobar. Bottom padding is `calc(2.2rem + 30vh)`,
+providing empty space inside the note card after the content without trailing
+`&nbsp;` lines. A `30px` bottom margin separates the card from the viewport edge.
+The editor preview area also has `2em` bottom padding. The infobar uses a `-35px`
+bottom margin to sit inside the card. The sidebar TOC has a `15px` left gap; its width
+and visibility threshold reserve that space on narrower screens. These offsets
+use pixels, matching HedgeDoc’s existing infobar and sidebar positioning.
 Slides retain their existing presentation layout. Backgrounds and extra spacing
 are omitted when printing.

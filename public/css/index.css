@@ -188,6 +188,7 @@ body:not(.night) .night {
 }
 
 .ui-view-area {
+    padding-bottom: 2em;
     /*overflow-y: scroll;*/
     -webkit-overflow-scrolling: touch;
 }

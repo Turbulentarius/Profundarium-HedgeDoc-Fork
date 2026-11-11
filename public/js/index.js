@@ -945,7 +945,7 @@ function checkTocStyle () {
     (ui.area.markdown.parent().outerWidth() - ui.area.markdown.outerWidth()) /
     2
   // for ipad or wider device
-  if (rightMargin >= 133) {
+  if (rightMargin >= 148) {
     newbool = true
     const affixLeftMargin =
       (ui.toc.affix.outerWidth() - ui.toc.affix.width()) / 2
@@ -954,7 +954,7 @@ function checkTocStyle () {
       ui.area.markdown.outerWidth() -
       affixLeftMargin
     ui.toc.affix.css('left', left + 'px')
-    ui.toc.affix.css('width', rightMargin + 'px')
+    ui.toc.affix.css('width', (rightMargin - 15) + 'px')
   } else {
     newbool = false
   }
