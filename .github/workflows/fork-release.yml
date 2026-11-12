@@ -119,6 +119,15 @@ jobs:
           Replaces release 3; its GitHub Release and tagged image version are removed only after successful publication.
           NOTES
               gh release create "$RELEASE" --verify-tag --title "$RELEASE" --notes-file release-notes.md
+            elif [[ "$RELEASE" == 'profundarium-v1.12.0-5' ]]; then
+              cat > release-notes.md <<'NOTES'
+          Fixes split editor/preview mode (`?both`): the editor and its controls now stack above the preview's decorative background. Verified mode switching, light/night themes, and resizing without modifying note content.
+
+          Reduces note-card top padding to 0.5rem while preserving 2.2rem on the right, bottom, and left. Retains the joined infobar/card styling, background and audio features, and security backports. No database schema changes. The cross-provider impersonation issue remains deferred.
+
+          Image: `ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-5`
+          NOTES
+              gh release create "$RELEASE" --verify-tag --title "$RELEASE" --notes-file release-notes.md
             else
               gh release create "$RELEASE" --verify-tag --title "$RELEASE" --generate-notes
             fi

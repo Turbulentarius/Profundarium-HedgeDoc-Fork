@@ -38,11 +38,11 @@ to publish packages and create releases, and merge the tested `turbulentarius/de
 changes (including the release workflow) into `master`. Review and resolve any
 merge conflicts first; the existing `master` may contain older upstream code.
 For subsequent releases, choose the next unused release number. For example,
-from a reviewed stable 1.12.0-based commit, release 5 would be tagged as follows:
+from a reviewed stable 1.12.0-based commit, release 6 would be tagged as follows:
 
 ```sh
-git tag -s profundarium-v1.12.0-5 -m "Profundarium HedgeDoc Fork 1.12.0 release 5"
-git push origin profundarium-v1.12.0-5
+git tag -s profundarium-v1.12.0-6 -m "Profundarium HedgeDoc Fork 1.12.0 release 6"
+git push origin profundarium-v1.12.0-6
 ```
 
 The workflow uses GitHub's built-in `GITHUB_TOKEN`; no personal access token is
@@ -57,7 +57,7 @@ available only after the release workflow succeeds):
 ```yaml
 services:
   hedgedoc:
-    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-4
+    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-5
     environment:
       CMD_DEFAULT_BACKGROUND: none
 ```
@@ -105,6 +105,13 @@ previously generated bundles. This image uses `node app.js` directly; supply
 `CMD_*` environment variables or `config.json` rather than depending on upstream
 container entrypoint scripts. The upstream `quay.io/hedgedoc/hedgedoc` images do
 not contain this fork's changes.
+
+## Split-view correction in profundarium-v1.12.0-5
+
+The editor and controls stack above the preview's decorative background in
+`?both` mode. Mode switching, light/night themes, and resizing retain the source
+text and aligned preview layout. Note-card padding is `0.5rem` at the top and
+`2.2rem` on the other sides. No database schema changes are included.
 
 ## Joined note and infobar styling in profundarium-v1.12.0-4
 
@@ -241,9 +248,11 @@ infobar and note content. They remain separate siblings in the DOM, joined in
 normal document flow without negative margins. The infobar has `1rem` top
 corners and the note has `1rem` bottom corners, giving the pair one rounded
 outline. Both use the same width and `2.2rem` horizontal padding. The infobar
-has `1.5rem` vertical padding and a `2rem` top margin; the note has `2.2rem`
-padding and a `30px` bottom margin. Both backgrounds follow the night theme.
-The editor preview area also has `2em` bottom padding. The sidebar TOC has a `15px` left gap; its width
+has `1.5rem` vertical padding and a `2rem` top margin; the note has `0.5rem` top
+padding, `2.2rem` padding on the other sides, and a `30px` bottom margin. Both backgrounds follow the night theme.
+The editor preview area also has `2em` bottom padding. In split (`?both`)
+view, the editor stacks above the preview background so media cannot cover the
+source text or editor controls. The sidebar TOC has a `15px` left gap; its width
 and visibility threshold reserve that space on narrower screens. These offsets
 use pixels, matching HedgeDoc’s existing infobar and sidebar positioning.
 Slides retain their existing presentation layout. Backgrounds and extra spacing

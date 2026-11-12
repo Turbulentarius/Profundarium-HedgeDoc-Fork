@@ -151,6 +151,8 @@ body:not(.night) .night {
 }
 
 .ui-edit-area {
+    /* Keep editor controls above the preview's fixed decorative background. */
+    z-index: 1;
     height: 100%;
     /*padding-left: 15px;*/
     padding-left: 0 !important;
