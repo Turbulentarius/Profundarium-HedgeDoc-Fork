@@ -133,7 +133,7 @@ review a corrected provider migration.
 
 The fork's published-background metadata correction is retained so note-specific
 backgrounds survive the server's removal of front matter. Regression coverage
-includes email registration/login, password compatibility, HTTP/realtime read
+includes email login, password compatibility, HTTP/realtime read
 permissions, avatar URL validation, published metadata, and the existing fork
 feature tests. Release `profundarium-v1.12.0-2` replaces the first fork release.
 Its one-time cleanup job removes the old GitHub Release and tagged image version
@@ -173,6 +173,13 @@ The markup lives in `public/views/hedgedoc/header.ejs`; the URL is assigned in `
 Known inconsistency: these header links currently have explicit `target="_blank"` attributes, which differ from the preferred same-tab policy above.
 
 ## Regression coverage
+
+Keep regression tests focused on distinct application behavior. Avatar URL
+validation is covered with the existing user-model photo tests. Authentication
+coverage uses Passport's public middleware rather than Express route internals
+or private Passport strategy methods. The removed provider-transition
+registration test is not needed by the unchanged registration implementation.
+
 
 `test/fork-customizations.js` checks native link navigation with external-link warnings enabled and disabled, and media sanitization that retains video sources and captions while stripping unsafe attributes and URLs. It also checks both Profundarium menu entries across public and restricted permission changes.
 

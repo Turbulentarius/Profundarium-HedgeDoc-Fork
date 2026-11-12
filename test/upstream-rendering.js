@@ -6,17 +6,6 @@ const path = require('path')
 const vm = require('vm')
 const { JSDOM } = require('jsdom')
 const ejs = require('ejs')
-const models = require('../lib/models')
-
-describe('Profile URL sanitization', function () {
-  it('rejects script URLs and escapes CSS delimiters in avatar URLs', function () {
-    const photo = source => models.User.parsePhotoByProfile({ provider: 'oauth2', photo: source })
-    assert.strictEqual(photo('javascript:alert(1)'), null)
-    assert.strictEqual(photo('file:///etc/passwd'), null)
-    assert.strictEqual(photo('https://example.com/avatar.png'), 'https://example.com/avatar.png')
-    assert(!/[()'"\\]/.test(photo('https://example.com/image(1).png?q=\'quoted\'')))
-  })
-})
 
 describe('Published note metadata', function () {
   it('preserves background overrides when the server strips YAML and re-adds breaks', function () {

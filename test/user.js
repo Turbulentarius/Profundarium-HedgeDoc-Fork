@@ -72,7 +72,7 @@ describe('User Sequelize model', function () {
 })
 
 describe('User.parsePhotoByProfile() oauth2 provider', function () {
-  it('uses the photo URL from the profile when present', function () {
+  it('uses safe supplied photo URLs and rejects unsafe avatar sources', function () {
     const profile = {
       provider: 'oauth2',
       username: 'alice',
@@ -81,6 +81,10 @@ describe('User.parsePhotoByProfile() oauth2 provider', function () {
     }
     assert.strictEqual(User.parsePhotoByProfile(profile), 'https://example.com/avatar.png')
     assert.strictEqual(User.parsePhotoByProfile(profile, true), 'https://example.com/avatar.png')
+    const photo = source => User.parsePhotoByProfile({ ...profile, photo: source })
+    assert.strictEqual(photo('javascript:alert(1)'), null)
+    assert.strictEqual(photo('file:///etc/passwd'), null)
+    assert(!/[()'"\\]/.test(photo('https://example.com/image(1).png?q=\'quoted\'')))
   })
 
   it('falls back to a generated avatar matching other providers when no photo is present', function () {
