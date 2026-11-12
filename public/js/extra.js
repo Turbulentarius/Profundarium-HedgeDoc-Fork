@@ -207,8 +207,11 @@ export function applyNoteBackground (view, meta = {}) {
     type = source.type
     source = source.src
   }
+  if (typeof source === 'string') source = source.trim()
+  const color = typeof source === 'string' && /^#(?:[0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(source) ? source : null
+  const none = typeof source === 'string' && source.toLowerCase() === 'none'
   let url
-  if (typeof source === 'string' && source.trim()) {
+  if (typeof source === 'string' && source && !none && !source.startsWith('#')) {
     try {
       const parsed = new URL(source.trim(), document.baseURI)
       if (['http:', 'https:'].includes(parsed.protocol)) url = parsed
@@ -216,7 +219,7 @@ export function applyNoteBackground (view, meta = {}) {
   }
   const previous = host.querySelector(':scope > .note-background')
   const video = url && (type === 'video' || (!type && /\.(mp4|webm|ogv|mov)$/i.test(url.pathname)))
-  const key = url ? `${video ? 'video' : 'image'}:${url.href}` : ''
+  const key = color ? `color:${color}` : (url ? `${video ? 'video' : 'image'}:${url.href}` : '')
   if (previous && previous.dataset.source === key) return
   if (previous) {
     if (previous.tagName === 'VIDEO') {
@@ -226,8 +229,8 @@ export function applyNoteBackground (view, meta = {}) {
     }
     previous.remove()
   }
-  if (!url) return
-  const media = document.createElement(video ? 'video' : 'img')
+  if (!url && !color) return
+  const media = document.createElement(color ? 'div' : (video ? 'video' : 'img'))
   media.className = 'note-background'
   media.dataset.source = key
   media.setAttribute('aria-hidden', 'true')
@@ -238,11 +241,42 @@ export function applyNoteBackground (view, meta = {}) {
     media.autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     media.preload = 'metadata'
     media.tabIndex = -1
-  } else {
+  } else if (!color) {
     media.alt = ''
   }
-  media.src = url.href
+  if (color) media.style.backgroundColor = color
+  else media.src = url.href
   host.prepend(media)
+  if (video) media.addEventListener('volumechange', updateBackgroundAudioControls)
+}
+
+function updateBackgroundAudioControls () {
+  const media = document.querySelector('video.note-background')
+  document.querySelectorAll('.background-audio-toggle').forEach(button => {
+    const muted = !media || media.muted
+    button.setAttribute('aria-pressed', String(!muted))
+    button.setAttribute('aria-label', muted ? 'Unmute background video' : 'Mute background video')
+    button.title = button.getAttribute('aria-label')
+    button.firstChild.className = `fa ${muted ? 'fa-volume-off' : 'fa-volume-up'}`
+  })
+}
+
+function appendBackgroundAudioControl (target) {
+  const media = document.querySelector('video.note-background')
+  if (!media) return
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.className = 'background-audio-toggle hidden-print'
+  const icon = document.createElement('i')
+  icon.setAttribute('aria-hidden', 'true')
+  button.append(icon)
+  button.addEventListener('click', event => {
+    event.stopPropagation()
+    media.muted = !media.muted
+    updateBackgroundAudioControls()
+  })
+  target.append(button)
+  updateBackgroundAudioControls()
 }
 
 // parse meta
@@ -885,6 +919,7 @@ export function generateToc (id) {
   })
   tocMenu.append(toggle).append(backtotop).append(gotobottom)
   target.append(tocMenu)
+  appendBackgroundAudioControl(target[0])
 }
 
 // smooth all hash trigger scrolling

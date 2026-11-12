@@ -119,17 +119,24 @@ background:
 ---
 ```
 
-Use `type: image` to force an image, or `background: false` to disable the default
-for one note. Removing the field restores the default. Only HTTP(S) and relative
+Use `type: image` to force an image. Set `background: none` (or `background: false`)
+to disable the configured background and use HedgeDoc's normal theme background.
+For a solid color, use a quoted hex code, for example `background: "#1a2b3c"`.
+Three-, four-, six-, and eight-digit hex colors are supported. Quote hex values
+in YAML because an unquoted `#` begins a comment. The `none` value and hex colors
+also work with `defaultBackground` / `CMD_DEFAULT_BACKGROUND`. In Compose, for
+example, use `CMD_DEFAULT_BACKGROUND: "#1a2b3c"`. Removing the field restores the default. Only HTTP(S) and relative
 URLs are accepted. External media must also be allowed by the instance CSP.
 Videos are decorative, muted, looping, and inline; autoplay is disabled when the
 page loads with reduced motion enabled. Browser autoplay restrictions still apply.
+When a video background is active, a round button below the TOC menu toggles
+audio on/off. It starts muted and is available in both sidebar and mobile TOCs;
+its label and icon reflect the current audio state.
 
 Editor previews and published notes have an opaque card with `2rem` corners,
 `2.2rem` side padding to leave room for heading link icons and `50px` top
-padding to accommodate the infobar. Bottom padding is `calc(2.2rem + 30vh)`,
-providing empty space inside the note card after the content without trailing
-`&nbsp;` lines. A `30px` bottom margin separates the card from the viewport edge.
+padding to accommodate the infobar. Bottom padding is `2.2rem`.
+A `30px` bottom margin separates the card from the viewport edge.
 The editor preview area also has `2em` bottom padding. The infobar uses a `-35px`
 bottom margin to sit inside the card. The sidebar TOC has a `15px` left gap; its width
 and visibility threshold reserve that space on narrower screens. These offsets

@@ -438,7 +438,7 @@ small .dropdown a:focus, small .dropdown a:hover {
 }
 #doc.note-card {
   border-radius: 2rem;
-  padding: 50px 2.2rem calc(2.2rem + 30vh);
+  padding: 50px 2.2rem 2.2rem;
   margin-top: 0;
   margin-bottom: 30px;
   width: calc(100% - 2rem);

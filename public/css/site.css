@@ -118,3 +118,35 @@ div.toc li ul li::before {
 #ui-toc-affix li a {
   padding-left: 0.4rem;
 }
+
+/* Background video audio controls sit below each desktop/mobile TOC menu. */
+.background-audio-toggle {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 10px 0 0;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 50%;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
+}
+.background-audio-toggle .fa {
+    font-size: 20px;
+}
+.background-audio-toggle:hover {
+    background: #eee;
+}
+.background-audio-toggle:focus-visible {
+    outline: 2px solid #337ab7 !important;
+    outline-offset: 2px;
+}
+.night .background-audio-toggle {
+    background: #222;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #ededed;
+}
+.night .background-audio-toggle:hover {
+    background: #444;
+}
