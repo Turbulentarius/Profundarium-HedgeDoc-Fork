@@ -38,11 +38,11 @@ to publish packages and create releases, and merge the tested `turbulentarius/de
 changes (including the release workflow) into `master`. Review and resolve any
 merge conflicts first; the existing `master` may contain older upstream code.
 For subsequent releases, choose the next unused release number. For example,
-from a reviewed stable 1.12.0-based commit, release 3 would be tagged as follows:
+from a reviewed stable 1.12.0-based commit, release 4 would be tagged as follows:
 
 ```sh
-git tag -s profundarium-v1.12.0-3 -m "Profundarium HedgeDoc Fork 1.12.0 release 3"
-git push origin profundarium-v1.12.0-3
+git tag -s profundarium-v1.12.0-4 -m "Profundarium HedgeDoc Fork 1.12.0 release 4"
+git push origin profundarium-v1.12.0-4
 ```
 
 The workflow uses GitHub's built-in `GITHUB_TOKEN`; no personal access token is
@@ -57,7 +57,7 @@ available only after the release workflow succeeds):
 ```yaml
 services:
   hedgedoc:
-    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-2
+    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-3
     environment:
       CMD_DEFAULT_BACKGROUND: none
 ```
@@ -105,6 +105,14 @@ previously generated bundles. This image uses `node app.js` directly; supply
 `CMD_*` environment variables or `config.json` rather than depending on upstream
 container entrypoint scripts. The upstream `quay.io/hedgedoc/hedgedoc` images do
 not contain this fork's changes.
+
+## Note spacing in profundarium-v1.12.0-3
+
+This release sets the infobar bottom margin to `-45px`, note-card top padding to
+`5rem`, and note-card top margin to `2rem`. It includes the regression-test
+cleanup and all security backports from release 2, with no database schema
+changes. Its scoped cleanup job retires release 2 and its tagged image version
+only after the replacement is published successfully.
 
 ## Security backports in profundarium-v1.12.0-2
 
@@ -221,10 +229,11 @@ audio on/off. It starts muted and is available in both sidebar and mobile TOCs;
 its label and icon reflect the current audio state.
 
 Editor previews and published notes have an opaque card with `2rem` corners,
-`2.2rem` side padding to leave room for heading link icons and `50px` top
-padding to accommodate the infobar. Bottom padding is `2.2rem`.
+`2.2rem` side padding to leave room for heading link icons and `5rem` top
+padding to accommodate the infobar. The card has a `2rem` top margin.
+Bottom padding is `2.2rem`.
 A `30px` bottom margin separates the card from the viewport edge.
-The editor preview area also has `2em` bottom padding. The infobar uses a `-35px`
+The editor preview area also has `2em` bottom padding. The infobar uses a `-45px`
 bottom margin to sit inside the card. The sidebar TOC has a `15px` left gap; its width
 and visibility threshold reserve that space on narrower screens. These offsets
 use pixels, matching HedgeDoc’s existing infobar and sidebar positioning.

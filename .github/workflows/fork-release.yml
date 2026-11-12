@@ -97,36 +97,47 @@ jobs:
           This release replaces `profundarium-v1.12.0-1`; the previous GitHub Release and tagged image version are retired after publication.
           NOTES
               gh release create "$RELEASE" --verify-tag --title "$RELEASE" --notes-file release-notes.md
+            elif [[ "$RELEASE" == 'profundarium-v1.12.0-3' ]]; then
+              cat > release-notes.md <<'NOTES'
+          Refines note spacing: the infobar has a -45px bottom margin, and note cards have 5rem top padding and a 2rem top margin.
+
+          Retains the security backports, backgrounds, audio controls, media support, TOC styling, and native navigation from release 2. Simplifies regression coverage; all 47 tests pass. No database schema changes are included. The cross-provider impersonation issue remains deferred.
+
+          Image: `ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-3`
+
+          Replaces release 2; its GitHub Release and tagged image version are removed after successful publication.
+          NOTES
+              gh release create "$RELEASE" --verify-tag --title "$RELEASE" --notes-file release-notes.md
             else
               gh release create "$RELEASE" --verify-tag --title "$RELEASE" --generate-notes
             fi
           fi
 
-  retire-first-release:
-    # One-time retirement explicitly requested for the first security release.
+  retire-previous-release:
+    # One-time retirement explicitly requested for the note-spacing release.
     # Never delete the package itself: it also contains the replacement image.
-    if: github.ref == 'refs/tags/profundarium-v1.12.0-2'
+    if: github.ref == 'refs/tags/profundarium-v1.12.0-3'
     needs: release
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write
     steps:
-      - name: Retire only the superseded first release and image version
+      - name: Retire only the superseded release and image version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          gh release view profundarium-v1.12.0-2 >/dev/null
+          gh release view profundarium-v1.12.0-3 >/dev/null
           endpoint="users/Turbulentarius/packages/container/profundarium-hedgedoc-fork/versions"
           gh api --paginate --slurp "$endpoint?per_page=100" > versions.json
           python3 - <<'PY'
           import json
           from pathlib import Path
           versions = [version for page in json.loads(Path('versions.json').read_text()) for version in page]
-          old_tag = 'profundarium-v1.12.0-1'
-          new_tag = 'profundarium-v1.12.0-2'
+          old_tag = 'profundarium-v1.12.0-2'
+          new_tag = 'profundarium-v1.12.0-3'
           assert any(new_tag in version['metadata']['container']['tags'] for version in versions), 'Replacement image missing'
           retiring = []
           for version in versions:
@@ -140,7 +151,7 @@ jobs:
           while IFS= read -r version; do
             gh api --method DELETE "$endpoint/$version"
           done < retiring-versions.txt
-          if gh release view profundarium-v1.12.0-1 >/dev/null 2>&1; then
-            gh release delete profundarium-v1.12.0-1 --yes
+          if gh release view profundarium-v1.12.0-2 >/dev/null 2>&1; then
+            gh release delete profundarium-v1.12.0-2 --yes
           fi
-          echo 'Retired the first release and its tagged image version; replacement preserved.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Retired the previous release and its tagged image version; replacement preserved.' >> "$GITHUB_STEP_SUMMARY"

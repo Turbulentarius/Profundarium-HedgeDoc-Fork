@@ -430,7 +430,7 @@ small .dropdown a:focus, small .dropdown a:hover {
   z-index: -1;
 }
 .note-surface > .ui-infobar {
-  margin-bottom: -35px;
+  margin-bottom: -45px;
   width: calc(100% - 20px);
 }
 .note-surface > .ui-affix-toc {
@@ -438,8 +438,8 @@ small .dropdown a:focus, small .dropdown a:hover {
 }
 #doc.note-card {
   border-radius: 2rem;
-  padding: 50px 2.2rem 2.2rem;
-  margin-top: 0;
+  padding: 5rem 2.2rem 2.2rem;
+  margin-top: 2rem;
   margin-bottom: 30px;
   width: calc(100% - 2rem);
   background: #fff;
