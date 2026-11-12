@@ -37,11 +37,12 @@ Before the first release, enable GitHub Actions in the fork, allow the workflow
 to publish packages and create releases, and merge the tested `turbulentarius/dev`
 changes (including the release workflow) into `master`. Review and resolve any
 merge conflicts first; the existing `master` may contain older upstream code.
-Then, from the reviewed stable commit, create and push a signed tag:
+For subsequent releases, choose the next unused release number. For example,
+from a reviewed stable 1.12.0-based commit, release 3 would be tagged as follows:
 
 ```sh
-git tag -s profundarium-v1.12.0-1 -m "Profundarium HedgeDoc Fork 1.12.0 release 1"
-git push origin profundarium-v1.12.0-1
+git tag -s profundarium-v1.12.0-3 -m "Profundarium HedgeDoc Fork 1.12.0 release 3"
+git push origin profundarium-v1.12.0-3
 ```
 
 The workflow uses GitHub's built-in `GITHUB_TOKEN`; no personal access token is
@@ -56,7 +57,7 @@ available only after the release workflow succeeds):
 ```yaml
 services:
   hedgedoc:
-    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-1
+    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-2
     environment:
       CMD_DEFAULT_BACKGROUND: none
 ```
