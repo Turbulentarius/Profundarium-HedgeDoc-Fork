@@ -430,20 +430,26 @@ small .dropdown a:focus, small .dropdown a:hover {
   z-index: -1;
 }
 .note-surface > .ui-infobar {
-  margin-bottom: -45px;
-  width: calc(100% - 20px);
+  margin-top: 2rem;
+  margin-bottom: 0;
+  padding: 1.5rem 2.2rem;
+  width: calc(100% - 2rem);
+  border-radius: 1rem 1rem 0 0;
+  background: #fff;
 }
 .note-surface > .ui-affix-toc {
   margin-left: 15px;
 }
 #doc.note-card {
-  border-radius: 2rem;
-  padding: 5rem 2.2rem 2.2rem;
-  margin-top: 2rem;
+  border-radius: 0 0 1rem 1rem;
+  padding: 2.2rem;
+  margin-top: 0;
   margin-bottom: 30px;
   width: calc(100% - 2rem);
   background: #fff;
 }
+.night.note-surface > .ui-infobar,
+.night .note-surface > .ui-infobar,
 .night #doc.note-card {
   background: #333;
 }
