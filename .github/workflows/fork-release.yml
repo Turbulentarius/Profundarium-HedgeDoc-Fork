@@ -1,0 +1,86 @@
+name: Publish fork release image
+
+on:
+  push:
+    tags:
+      - 'profundarium-v1.*-*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fork-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  image:
+    if: github.repository == 'Turbulentarius/Profundarium-HedgeDoc-Fork'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout release source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate fork tag and stable branch ancestry
+        env:
+          RELEASE: ${{ github.ref_name }}
+        run: |
+          [[ "$RELEASE" =~ ^profundarium-v1\.[0-9]+\.[0-9]+-[1-9][0-9]*$ ]]
+          base_version="$(node -p 'require("./package.json").version')"
+          [[ "$RELEASE" == "profundarium-v${base_version}-"* ]]
+          git merge-base --is-ancestor HEAD origin/master
+          echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}:$RELEASE" >> "$GITHUB_ENV"
+
+      - name: Build and test release image
+        env:
+          RELEASE: ${{ github.ref_name }}
+        run: |
+          docker build --file docker/fork/Dockerfile \
+            --build-arg "SOURCE_URL=https://github.com/$GITHUB_REPOSITORY" \
+            --build-arg "REVISION=$GITHUB_SHA" \
+            --build-arg "RELEASE=$RELEASE" \
+            --tag "$IMAGE" .
+
+      - name: Check production runtime and built assets
+        run: |
+          docker run --rm --network none \
+            -e CMD_DEFAULT_BACKGROUND=none \
+            -e CMD_SESSION_SECRET=release-smoke-test-only \
+            --entrypoint node "$IMAGE" -e '
+              const assert = require("assert")
+              const fs = require("fs")
+              assert.strictEqual(require("./lib/config").defaultBackground, "none")
+              assert(fs.existsSync("public/views/build/index-pack-header.ejs"))
+              assert(fs.existsSync("public/views/build/pretty-pack-header.ejs"))
+              assert(fs.readdirSync("public/build").some(name => name.endsWith(".js")))
+              assert.strictEqual(process.getuid(), 10000)
+            '
+
+      - name: Sign in to GHCR and publish
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE"
+          echo "Published: $IMAGE" >> "$GITHUB_STEP_SUMMARY"
+
+  release:
+    needs: image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create GitHub release after image publication
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE: ${{ github.ref_name }}
+        run: |
+          if ! gh release view "$RELEASE" >/dev/null 2>&1; then
+            gh release create "$RELEASE" --verify-tag --title "$RELEASE" --generate-notes
+          fi

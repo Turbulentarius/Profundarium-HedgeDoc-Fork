@@ -19,46 +19,91 @@ Restart HedgeDoc only after the build finishes without errors.
 
 When upgrading an existing installation, back up the database first. This version requires each account to have a different email address. If multiple accounts share an email address, the database update will fail. Check for duplicates before upgrading and resolve them without deleting accounts or their notes.
 
-## Building a container image
+## Fork releases and container images
 
-This repository contains the application source and build tools. Upstream keeps its Dockerfiles and container startup scripts in the separate [hedgedoc/container repository](https://github.com/hedgedoc/container). Use that repository to build this fork locally; no image registry or publication is required. The upstream `quay.io/hedgedoc/hedgedoc` images contain upstream code, not this fork.
+The fork uses release tags such as `profundarium-v1.12.0-1`. The upstream version
+identifies the base; the final number identifies successive fork releases.
+Never move or reuse published release tags.
 
-Install Docker with the Compose plugin and Git. Beside your existing Compose file, clone the upstream container repository:
+The `Publish fork release image` workflow builds matching tag pushes, runs lint,
+the Mocha suite, and the frontend build, then checks the production runtime.
+It publishes a Linux AMD64 image to GHCR and creates a GitHub Release after the
+image has been pushed. It does not publish on an ordinary branch push or merge.
+The workflow rejects tags whose version differs from `package.json` or whose
+commit is not contained in the fork's `master` branch. HedgeDoc 2 branches are
+not release sources for this workflow.
+
+Before the first release, enable GitHub Actions in the fork, allow the workflow
+to publish packages and create releases, and merge the tested `turbulentarius/dev`
+changes (including the release workflow) into `master`. Review and resolve any
+merge conflicts first; the existing `master` may contain older upstream code.
+Then, from the reviewed stable commit, create and push a signed tag:
 
 ```sh
-git clone https://github.com/hedgedoc/container.git hedgedoc-container
+git tag -s profundarium-v1.12.0-1 -m "Profundarium HedgeDoc Fork 1.12.0 release 1"
+git push origin profundarium-v1.12.0-1
 ```
 
-In your existing HedgeDoc service, replace the upstream `image:` entry with this `build:` section. This is a partial example; keep your existing environment, ports, networks, and persistent storage settings:
+The workflow uses GitHub's built-in `GITHUB_TOKEN`; no personal access token is
+required. After the first publication, check the GHCR package settings and make
+the package public if anonymous image pulls are desired. Private packages require
+registry authentication. The first release has not been published merely by
+adding this workflow.
+
+In Compose, use the published version explicitly (the following image becomes
+available only after the release workflow succeeds):
 
 ```yaml
 services:
   hedgedoc:
-    build:
-      context: ./hedgedoc-container
-      dockerfile: alpine/Dockerfile
-      args:
-        HEDGEDOC_REPOSITORY: https://github.com/Turbulentarius/Profundarium-HedgeDoc-Fork.git
-        VERSION: turbulentarius/dev
+    image: ghcr.io/turbulentarius/profundarium-hedgedoc-fork:profundarium-v1.12.0-1
+    environment:
+      CMD_DEFAULT_BACKGROUND: none
 ```
 
-Upstream also provides `debian/Dockerfile` if you prefer Debian. `VERSION` selects a branch or tag in the fork. The build clones that source from GitHub; it does not use a local application checkout or its uncommitted changes.
+Keep your existing database, authentication settings, configuration, uploads,
+and `CMD_SESSION_SECRET`. This image runs as UID/GID `10000:10000`; ensure the
+uploads directory is writable by that account. Its working directory is
+`/hedgedoc`; uploads default to `/hedgedoc/public/uploads`. Keep the appropriate
+upload mount or set `uploadsPath` in `config.json` for a different path. Configuration can
+be mounted read-only at `/hedgedoc/config.json`. Background media must be hosted
+at a browser-accessible URL; local static files can be mounted read-only at
+`/hedgedoc/public/static` and referenced with `/static/filename.mp4`.
 
-Remove source mounts that replace application files, such as `public/build` or `public/views`: the image builds the backend, frontend, and templates together. Keep configuration and upload mounts, database storage, and the existing `CMD_SESSION_SECRET`. Replacing only frontend files on an older upstream image can introduce links or features that its backend does not support.
-
-Before upgrading, back up the database, configuration, and uploads, and read [Updating this fork](#updating-this-fork). From the directory containing your Compose file, run:
+Remove mounts that replace application code, `public/build`, or `public/views`:
+the image already contains the matching backend, frontend, and templates.
+Remove an existing Compose `build:` section when switching to a published image.
+Back up the database and uploads before upgrading and read [Updating this
+fork](#updating-this-fork), then run:
 
 ```sh
 docker compose config --quiet
-docker compose build --no-cache hedgedoc
+docker compose pull hedgedoc
 docker compose up -d --no-deps hedgedoc
 docker compose ps -a hedgedoc
 docker compose logs --tail=50 hedgedoc
 ```
 
-Substitute your actual service name for `hedgedoc` if different. Build successfully before recreating the running service. These commands assume your existing database service is running.
+Substitute your service name if different. Pin the published image digest for
+stronger reproducibility. Reverting the image does not reverse database migrations;
+check migration compatibility before rolling back.
 
-Repeat the commands above after publishing updates to the selected fork branch. `--no-cache` ensures the build fetches the branch again rather than reusing an older checkout. To update upstream's container build files as well, run `git -C hedgedoc-container pull --ff-only` before building. No changes to the fork's Docker packaging are needed.
+## Building a container image locally
+
+Build the current checkout, including uncommitted source changes, without
+publishing anything:
+
+```sh
+docker build -f docker/fork/Dockerfile -t profundarium-hedgedoc:local .
+```
+
+The multi-stage Alpine build installs locked dependencies, runs lint and tests,
+builds the frontend, and keeps build tools out of the non-root runtime image.
+The build context excludes local configuration, uploads, dependencies, and
+previously generated bundles. This image uses `node app.js` directly; supply
+`CMD_*` environment variables or `config.json` rather than depending on upstream
+container entrypoint scripts. The upstream `quay.io/hedgedoc/hedgedoc` images do
+not contain this fork's changes.
 
 ## Normal link navigation
 
