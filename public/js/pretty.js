@@ -27,10 +27,12 @@ require('../css/highlightjs.css')
 
 const markdown = $('#doc.markdown-body')
 const text = markdown.text()
+const publishedMeta = JSON.parse($('#meta').text() || '{}')
 const lastMeta = md.meta
 md.meta = {}
 delete md.metaError
 let rendered = md.render(text)
+md.meta = Object.assign({}, publishedMeta, md.meta)
 if (md.meta.type && md.meta.type === 'slide') {
   const slideOptions = {
     separator: '^(\r\n?|\n)---(\r\n?|\n)$',
@@ -51,6 +53,7 @@ if (md.meta.type && md.meta.type === 'slide') {
   if (JSON.stringify(md.meta) !== JSON.stringify(lastMeta)) {
     parseMeta(md, null, markdown, $('#ui-toc'), $('#ui-toc-affix'))
     rendered = md.render(text)
+    md.meta = Object.assign({}, publishedMeta, md.meta)
   }
   // prevent XSS
   rendered = preventXSS(rendered)

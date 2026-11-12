@@ -5,6 +5,7 @@ import Prism from 'prismjs'
 import PDFObject from 'pdfobject'
 import { saveAs } from 'file-saver'
 import filterXSS from 'xss'
+import DOMPurify from 'dompurify'
 
 import getUIElements from './lib/editor/ui-elements'
 import { escapeHtml, unescapeHtml } from './utils'
@@ -343,7 +344,7 @@ function replaceExtraTags (html) {
 
 // dynamic event or object binding here
 export function finishView (view) {
-  if (!view.hasClass('slides')) applyNoteBackground(view, md.meta || {})
+  if (view.is('#doc.markdown-body') && !view.hasClass('slides')) applyNoteBackground(view, md.meta || {})
   // todo list
   const lis = view.find('li.raw').removeClass('raw').sortByDepth().toArray()
 
@@ -456,7 +457,9 @@ export function finishView (view) {
         const Viz = require('viz.js')
         const graphviz = Viz($value.text())
         if (!graphviz) throw Error('viz.js output empty graph')
-        $value.html(graphviz)
+        $value.html(DOMPurify.sanitize(graphviz, {
+          USE_PROFILES: { svg: true, svgFilters: true }
+        }))
 
         $ele.addClass('graphviz')
         $value.children().unwrap().unwrap()
@@ -811,7 +814,7 @@ export function exportToHTML (view) {
   // generate html via template
   $.get(`${serverurl}/build/htmlexport.html`, template => {
     let html = template.replace('{{{url}}}', serverurl)
-    html = html.replace('{{title}}', title)
+    html = html.replace('{{title}}', () => escapeHtml(title))
     html = html.replace('{{{html}}}', src[0].outerHTML)
     html = html.replace('{{{ui-toc}}}', toc.html())
     html = html.replace('{{{ui-toc-affix}}}', tocAffix.html())

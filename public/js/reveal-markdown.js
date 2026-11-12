@@ -20,20 +20,15 @@ import { md } from './extra'
   const DEFAULT_ELEMENT_ATTRIBUTES_SEPARATOR = '\\.element\\s*?(.+?)$'
   const DEFAULT_SLIDE_ATTRIBUTES_SEPARATOR = '\\.slide:\\s*?(\\S.+?)$'
 
-  const SCRIPT_END_PLACEHOLDER = '__SCRIPT_END__'
-
   /**
    * Retrieves the markdown contents of a slide section
    * element. Normalizes leading tabs/whitespace.
    */
   function getMarkdownFromSlide (section) {
-    const template = section.querySelector('script')
+    const template = section.querySelector('textarea[data-template], script')
 
     // strip leading whitespace so it isn't evaluated as code
     let text = (template || section).textContent
-
-    // restore script end tags
-    text = text.replace(new RegExp(SCRIPT_END_PLACEHOLDER, 'g'), '</script>')
 
     const leadingWs = text.match(/^\n?(\s*)/)[1].length
     const leadingTabs = text.match(/^\n?(\t*)/)[1].length
@@ -99,11 +94,10 @@ import { md } from './extra'
       content = notesMatch[0] + '<aside class="notes" data-markdown>' + notesMatch[1].trim() + '</aside>'
     }
 
-    // prevent script end tags in the content from interfering
-    // with parsing
-    content = content.replace(/<\/script>/gi, SCRIPT_END_PLACEHOLDER)
+    // Keep Markdown as text until it has been rendered and sanitized.
+    content = content.replace(/&/g, '&amp;').replace(/</g, '&lt;')
 
-    return '<script type="text/template">' + content + '</script>'
+    return '<textarea data-template hidden>' + content + '</textarea>'
   }
 
   /**
@@ -238,7 +232,7 @@ import { md } from './extra'
   /**
    * Check if a node value has the attributes pattern.
    * If yes, extract it and add that value as one or several attributes
-   * the the terget element.
+   * to the target element.
    *
    * You need Cache Killer on Chrome to see the effect on any FOM transformation
    * directly on refresh (F5)
@@ -257,7 +251,9 @@ import { md } from './extra'
       while ((matchesClass = mardownClassRegex.exec(classes))) {
         const name = matchesClass[1]
         const value = matchesClass[2]
-        if (name.substr(0, 5) === 'data-' || window.whiteListAttr.indexOf(name) !== -1) { elementTarget.setAttribute(name, escapeAttrValue(value)) }
+        if (name.slice(0, 5) === 'data-' || window.whiteListAttr.indexOf(name) !== -1) {
+          elementTarget.setAttribute(name, escapeAttrValue(value))
+        }
       }
       return true
     }

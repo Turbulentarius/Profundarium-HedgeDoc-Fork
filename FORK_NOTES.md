@@ -105,6 +105,40 @@ previously generated bundles. This image uses `node app.js` directly; supply
 container entrypoint scripts. The upstream `quay.io/hedgedoc/hedgedoc` images do
 not contain this fork's changes.
 
+## Security backports in profundarium-v1.12.0-2
+
+This release stays on the 1.12.0 base and selectively backports security fixes.
+It does not adopt upstream's withdrawn 1.12.1/1.12.2 releases as a whole.
+Included changes cover malformed realtime selections, unsafe history keys,
+slideshow HTML/iframe handling, Graphviz SVG sanitization, exported note titles,
+profile names and avatar URLs, and stricter note-read permissions.
+
+The shared permission check handles both HTTP and realtime request/note shapes,
+preserving legitimate private-note access while rejecting invalid permissions.
+Email login verifies a fixed dummy password hash for unknown accounts to avoid
+skipping the expensive password-check path. The existing account schema,
+provider lookup, registration behavior, and password-hashing dependency remain
+unchanged. DOMPurify is updated to 3.4.17 and Markdown-it to 14.3.3 using the
+upstream security patch updates; the existing esbuild loader also transpiles
+`.mjs` files so the patched Markdown-it can build with Webpack 4. Other
+dependencies retain their previous versions.
+
+The provider/account migration, provider-aware authentication transition, major
+library upgrades, renderer checkbox change, and unrelated CI/documentation
+updates are deferred. Consequently, the upstream cross-provider impersonation
+issue is not fixed by this release. Instances offering multiple external login
+providers still need to assess overlapping profile IDs and await or separately
+review a corrected provider migration.
+
+The fork's published-background metadata correction is retained so note-specific
+backgrounds survive the server's removal of front matter. Regression coverage
+includes email registration/login, password compatibility, HTTP/realtime read
+permissions, avatar URL validation, published metadata, and the existing fork
+feature tests. Release `profundarium-v1.12.0-2` replaces the first fork release.
+Its one-time cleanup job removes the old GitHub Release and tagged image version
+only after the replacement has been published successfully. The package itself
+and the historical signed Git tag are preserved.
+
 ## Normal link navigation
 
 The link policy follows Turbulentarius's preference for consistency with normal browser navigation, informed by Jakob Nielsen's UX recommendations. Navigation should be predictable, with users choosing whether to open another tab or window.

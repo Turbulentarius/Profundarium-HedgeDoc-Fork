@@ -1560,7 +1560,7 @@ __metadata:
     css-loader: "npm:5.2.7"
     deep-freeze: "npm:0.0.1"
     diff-match-patch: "git+https://github.com/hackmdio/diff-match-patch.git#commit=59a9395ad9fe143e601e7ae5765ed943bdd2b11e"
-    dompurify: "npm:3.4.16"
+    dompurify: "npm:3.4.17"
     ejs: "npm:3.1.10"
     emojify.js: "npm:1.1.0"
     esbuild-loader: "npm:4.5.0"
@@ -1606,7 +1606,7 @@ __metadata:
     lutim: "npm:1.0.3"
     lz-string: "git+https://github.com/hackmdio/lz-string.git#commit=6edfccb79cd8c210f03fd3bf18e41ca144fbeefb"
     mariadb: "npm:3.5.4"
-    markdown-it: "npm:14.3.0"
+    markdown-it: "npm:14.3.3"
     markdown-it-abbr: "npm:2.0.0"
     markdown-it-container: "npm:4.0.0"
     markdown-it-deflist: "npm:4.0.0"
@@ -5805,15 +5805,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:3.4.16":
-  version: 3.4.16
-  resolution: "dompurify@npm:3.4.16"
+"dompurify@npm:3.4.17":
+  version: 3.4.17
+  resolution: "dompurify@npm:3.4.17"
   dependencies:
     "@types/trusted-types": "npm:^2.0.7"
   dependenciesMeta:
     "@types/trusted-types":
       optional: true
-  checksum: 10/a571d0e2bede4f739666afd640398a86854abd27c71ce0724910249e2fd2ca7ddb8098a9ab579d3a5b39058419af694421f8fe859a81fd6d8acda16019a8ab9d
+  checksum: 10/ae03c068bd351d1201a24a9667cb302c65939f45a0c357edec8b84133108e19ac74f355c2d8b0f30baadadd7f0be2db300d269aa80d3ee15872712ca9ff4e1a8
   languageName: node
   linkType: hard
 
@@ -10084,9 +10084,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdown-it@npm:14.3.0":
-  version: 14.3.0
-  resolution: "markdown-it@npm:14.3.0"
+"markdown-it@npm:14.3.3":
+  version: 14.3.3
+  resolution: "markdown-it@npm:14.3.3"
   dependencies:
     argparse: "npm:^2.0.1"
     entities: "npm:^4.5.0"
@@ -10096,7 +10096,7 @@ __metadata:
     uc.micro: "npm:^2.1.0"
   bin:
     markdown-it: bin/markdown-it.mjs
-  checksum: 10/16afbae804e7ea10474389918e31036c438d00bacabb340e57769a84d8a3068f37814736483a645b6ad69e138aa491c3cac83d261b630bd6d2f6af6139c5d18b
+  checksum: 10/ab96ec39766d59ed234304ef01108a13793b735dc1032a00f5bd89a20fb030f8c9305ac7b76f1f59a10257a4e456cdffd5f7c568e6ef9d99fe7f1fe2074395df
   languageName: node
   linkType: hard
 
